@@ -249,6 +249,8 @@ namespace plume {
         virtual RenderSampleCounts getSampleCountsSupported(RenderFormat format) const = 0;
         virtual bool beginCapture() = 0;
         virtual bool endCapture() = 0;
+        virtual bool loadPipelineCache(const std::string & /*path*/) { return false; }
+        virtual bool savePipelineCache(const std::string & /*path*/) { return false; }
     };
 
     struct RenderInterface {

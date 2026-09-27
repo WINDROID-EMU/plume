@@ -143,6 +143,7 @@ namespace plume {
         std::string entryPointName;
         VulkanDevice *device = nullptr;
         RenderShaderFormat format = RenderShaderFormat::UNKNOWN;
+        std::vector<uint8_t> spirvData;
 
         VulkanShader(VulkanDevice *device, const void *data, uint64_t size, const char *entryPointName, RenderShaderFormat format);
         ~VulkanShader() override;
@@ -417,6 +418,7 @@ namespace plume {
         std::unique_ptr<RenderBuffer> nullBuffer;
         bool loadStoreOpNoneSupported = false;
         bool nullDescriptorSupported = false;
+        VkPipelineCache pipelineCache = VK_NULL_HANDLE;
 
         VulkanDevice(VulkanInterface *renderInterface, const std::string &preferredDeviceName);
         ~VulkanDevice() override;
@@ -446,6 +448,8 @@ namespace plume {
         bool isValid() const;
         bool beginCapture() override;
         bool endCapture() override;
+        bool loadPipelineCache(const std::string &path) override;
+        bool savePipelineCache(const std::string &path) override;
     };
 
     struct VulkanInterface : RenderInterface {
